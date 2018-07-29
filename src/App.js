@@ -40,6 +40,14 @@ class App extends Component {
     };
   }
 
+  componentDidMount() {
+    fetch('https://www.poemist.com/api/v1')
+      .then(res => res.json())
+      .then(data => this.setState({
+        players_List: data
+      }))
+  }
+
   toggleDropDown() {
     this.setState({
       dropdownOpen: !this.state.dropdownOpen
@@ -123,6 +131,9 @@ class App extends Component {
                   }
                 </tbody>
               </Table>
+            </Row>
+            <Row>
+              <Button className="request">Claim your terroritory</Button>
             </Row>
           </Col> 
         </Row>
