@@ -16,31 +16,15 @@ class RankingTable extends Component {
     }
 
     componentWillMount() {
-        const GAMEHEADERS = {
-            'lol': ['#', 'Name', 'MMR', 'Rank'],
-            'fornite': []
-        }
-
-        const GAMEBODY = {
-            'lol': [
-                ['1', 'implemented', '1765', 'Gold II'],
-                ['2', 'SoSoSorry', '2100', 'Diamond IV'],
-                ['3', 'Tibe', '2210', 'Diamond III'],
-                ['4', 'UpTownTroll', '1645', 'Gold III'],
-                ['10', 'meow side', '1455', 'Gold V']
-            ],
-            'fornite': []
-        }
-
+        let {playersRankData} = this.props
         this.setState({
-            tableHeaders: GAMEHEADERS[this.props.game],
-            tableBody: GAMEBODY[this.props.game]
+            tableHeaders: playersRankData.gameHeaders,
+            tableBody: playersRankData.areaPlayerStates
         })
     }
 
     render() {
         const {tableHeaders, tableBody} = this.state
-        console.log(tableHeaders)
         return (
             <Row className="Table">
                 <Table hover responsive>

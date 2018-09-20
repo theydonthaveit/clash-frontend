@@ -1,5 +1,7 @@
 import React, { Component } from 'react'
 import {
+    Col,
+    Row,
     Input,
     InputGroup,
     InputGroupButtonDropdown,
@@ -21,43 +23,58 @@ class LeagueOfLegendsInput extends Component {
         }
     }
 
-    toggleSplit() {
+    toggleSplit = () => {
         this.setState({
             splitButtonOpen: !this.state.splitButtonOpen
         })
     }
 
-    selectRegion(e) {
+    selectRegion = (e) => {
         this.setState({
             regionSelected: e.target.value
         })
+
+        this.props.regionSelected(
+            e.target.value
+        )
+    }
+
+    summonerNameOnChangeHandler = (e) => {
+        this.props.summonerNameOnChange(
+            e.target.value
+        )
     }
 
     render() {
-        const {regions} = this.state
+        const {regions, regionSelected} = this.state
         return (
-            <InputGroup>
-                <InputGroupButtonDropdown
-                    addonType="prepend"
-                    isOpen={this.state.splitButtonOpen}
-                    toggle={() => this.toggleSplit()}
-                    >
-                    <Button outline disabled>{this.state.regionSelected}</Button>
-                    <DropdownToggle split outline />
-                    <DropdownMenu>
-                    {
-                        regions.map((region, indx) =>
-                            <DropdownItem
-                                key={indx}
-                                value={region}
-                                onClick={(e) => this.selectRegion(e)}>
-                                {region}.toUpperCase()
-                            </DropdownItem> )
-                    }
-                    </DropdownMenu>
-                </InputGroupButtonDropdown>
-                <Input placeholder="summoner name..." />
-            </InputGroup>
+            <Col>
+                <Row>
+                    <InputGroup>
+                        <InputGroupButtonDropdown
+                            addonType="prepend"
+                            isOpen={this.state.splitButtonOpen}
+                            toggle={this.toggleSplit}>
+                            <Button outline disabled>{regionSelected}</Button>
+                            <DropdownToggle split outline />
+                            <DropdownMenu>
+                            {
+                                regions.map((region, indx) =>
+                                    <DropdownItem
+                                        key={indx}
+                                        value={region}
+                                        onClick={this.selectRegion}>
+                                        {region.toUpperCase()}
+                                    </DropdownItem> )
+                            }
+                            </DropdownMenu>
+                        </InputGroupButtonDropdown>
+                        <Input
+                            placeholder="summoner name..."
+                            onChange={this.summonerNameOnChangeHandler}/>
+                    </InputGroup>
+                </Row>
+            </Col>
         )
     }
 }

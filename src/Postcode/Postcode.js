@@ -12,11 +12,24 @@ class Postcode extends Component {
         this.state = {}
     }
 
+    postcodeOnChangeHandler = (e) => {
+        let {value} = e.target
+        this.setState({
+            postcode: value
+        })
+        this.props.postcodeOnChange(
+            value.toLowerCase().replace(/ /g,'')
+        )
+    }
+
     render() {
         return (
             <InputGroup>
                 <InputGroupAddon addonType="prepend">L</InputGroupAddon>
-                <Input placeholder="enter your postcode..." />
+                <Input
+                    maxLength={8}
+                    placeholder="enter your postcode..."
+                    onChange={this.postcodeOnChangeHandler} />
             </InputGroup>
         )
     }
